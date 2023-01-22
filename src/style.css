@@ -1,8 +1,22 @@
+body {
+  background-color: black;
+}
+
 #canvas {
   width: 100%;
-  height: 100%;
+  height: 95%;
+  margin-top: 2ch;
   left: 0;
   top: 0;
   background-color: black;
-  position: absolute;
+  /* position: absolute; */
+  /* z-index: -1; */
+}
+
+#controls {
+  display: inline-block;
+}
+
+.control-btn {
+  padding: 10px;
 }
