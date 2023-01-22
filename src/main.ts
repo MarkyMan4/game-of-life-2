@@ -7,13 +7,15 @@ const clearBtn = document.getElementById('clear-btn') as HTMLButtonElement;
 const randomizeBtn = document.getElementById('rand-btn') as HTMLButtonElement;
 const cellColorInp = document.getElementById('cell-color-picker') as HTMLInputElement;
 const showGridInp = document.getElementById('show-grid-input') as HTMLInputElement;
+const resolutionInp = document.getElementById('resolution-input') as HTMLInputElement;
+const timestepInp = document.getElementById('timestep-input') as HTMLInputElement;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const cellsAcross = 100;
-const cellSize = canvas.width / cellsAcross;
-const cellsDown = Math.floor(canvas.height / cellSize);
+let cellsAcross = 100;
+let cellSize = canvas.width / cellsAcross;
+let cellsDown = Math.floor(canvas.height / cellSize);
 
 let grid = new Grid(cellsAcross, cellsDown);
 let isRunning = false;
@@ -43,11 +45,27 @@ randomizeBtn.addEventListener('click', (_) => {
 
 cellColorInp.addEventListener('change', (_) => {
     cellColor = cellColorInp.value;
-})
+});
 
 showGridInp.addEventListener('change', (_) => {
     showGrid = showGridInp.checked;
-})
+});
+
+resolutionInp.addEventListener('change', (_) => {
+    // recreate grid with new resolution and pause running
+    isRunning = false;
+
+    cellsAcross = parseInt(resolutionInp.value);
+    cellSize = canvas.width / cellsAcross;
+    cellsDown = Math.floor(canvas.height / cellSize);
+    grid = new Grid(cellsAcross, cellsDown);
+
+    runBtn.innerHTML = 'run';
+});
+
+timestepInp.addEventListener('change', (_) => {
+    timestep = parseInt(timestepInp.value);
+});
 
 // gets the mouse position relative to canvas, not relative to screen
 const getMousePos = (ev: MouseEvent) => {
