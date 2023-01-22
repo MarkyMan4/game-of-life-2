@@ -5,6 +5,8 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 const runBtn = document.getElementById('run-btn') as HTMLButtonElement;
 const clearBtn = document.getElementById('clear-btn') as HTMLButtonElement;
 const randomizeBtn = document.getElementById('rand-btn') as HTMLButtonElement;
+const cellColorInp = document.getElementById('cell-color-picker') as HTMLInputElement;
+const showGridInp = document.getElementById('show-grid-input') as HTMLInputElement;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -16,13 +18,14 @@ const cellsDown = Math.floor(canvas.height / cellSize);
 let grid = new Grid(cellsAcross, cellsDown);
 let isRunning = false;
 let isMouseDown = false;
+let cellColor = 'white';
+let showGrid = true;
 
 // controls for how fast animation runs
 let timestep = 75;
-// let currentTime = new Date();
 let lastUpdateTime = new Date();
 
-// button event listeners
+// event listeners for controls
 runBtn.addEventListener('click', (_) => {
     isRunning = !isRunning;
     lastUpdateTime = new Date();
@@ -37,6 +40,14 @@ clearBtn.addEventListener('click', (_) => {
 randomizeBtn.addEventListener('click', (_) => {
     grid.randomize();
 });
+
+cellColorInp.addEventListener('change', (_) => {
+    cellColor = cellColorInp.value;
+})
+
+showGridInp.addEventListener('change', (_) => {
+    showGrid = showGridInp.checked;
+})
 
 // gets the mouse position relative to canvas, not relative to screen
 const getMousePos = (ev: MouseEvent) => {
@@ -81,10 +92,14 @@ const drawGrid = () => {
         for(let j = 0; j < grid.cells[i].length; j++) {
             ctx.beginPath();
             ctx.rect(j * cellSize, i * cellSize, cellSize, cellSize);
-            ctx.fillStyle = grid.cells[i][j] ? 'white' : 'black';
-            ctx.strokeStyle = grid.cells[i][j] ? 'black' : 'white';
+            ctx.fillStyle = grid.cells[i][j] ? cellColor : 'black';
             ctx.fill();
-            ctx.stroke();
+            
+            // only do this if show grid is turned on
+            if(showGrid) {
+                ctx.strokeStyle = grid.cells[i][j] ? 'black' : 'white';
+                ctx.stroke();
+            }
         }
     }
 }
