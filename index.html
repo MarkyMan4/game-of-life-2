@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game of Life</title>
+    <script type="module" crossorigin src="./assets/index.4aeb5236.js"></script>
+    <link rel="stylesheet" href="./assets/index.1b8c8daa.css">
+  </head>
+  <body>
+    <div id="controls">
+      <button id="run-btn" class="control-btn">run</button>
+      <button id="clear-btn" class="control-btn">clear</button>
+      <button id="rand-btn" class="control-btn">randomize</button>
+      
+      <div class="control-input">
+        <label for="cell-color">cell color</label>
+        <input type="color" name="cell-color" id="cell-color-picker" value="#ffffff">
+      </div>
+      
+      <div class="control-input">
+        <label for="show-grid">show grid</label>
+        <input type="checkbox" name="show-grid" id="show-grid-input" checked>
+      </div>
+      
+      <div class="control-input">
+        <label for="resolution">resolution</label>
+        <input type="number" name="resolution" id="resolution-input" value="100">
+      </div>
+      
+      <div class="control-input">
+        <label for="timestep">timestep</label>
+        <input type="number" name="timestep" id="timestep-input" value="75">
+      </div>
+    </div>
+    <canvas id="canvas"></canvas>
+    
+  </body>
+</html>
